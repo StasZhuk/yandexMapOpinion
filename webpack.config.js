@@ -5,6 +5,11 @@ let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let loaders = require('./webpack.config.loaders')();
 let path = require('path');
 
+const PATHS = {
+    source: path.join(__dirname, 'src'),
+    build: path.join(__dirname, 'dist')
+};
+
 loaders.push({
     test: /\.css$/,
     loader: ExtractTextPlugin.extract({
@@ -14,26 +19,20 @@ loaders.push({
 });
 
 module.exports = {
-    entry: './src/index.js',
+    entry: PATHS.source + '/index.js',
     output: {
-        filename: '[name].[hash].js',
-        path: path.resolve('dist')
+        filename: '[name].js',
+        path: PATHS.build
     },
     devtool: 'source-map',
     module: {
         loaders
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            sourceMap: true,
-            compress: {
-                drop_debugger: false
-            }
-        }),
         new ExtractTextPlugin('styles.css'),
         new HtmlPlugin({
             title: 'Loft School sample project',
-            template: 'index.hbs'
+            template: PATHS.source + '/index.hbs'
         }),
         new CleanWebpackPlugin(['dist'])
     ]
