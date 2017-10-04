@@ -1,0 +1,122 @@
+body,
+html {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+*, *:after, *:before {
+    box-sizing: inherit
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+.opinion {
+    display: block;
+    width: 300px;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.opinion__header {
+    display: flex;
+    align-items: center;
+    height: 45px;
+    padding: 10px;
+    background-color: #ff8663;
+    color: #fff;
+}
+
+.opinion__marker {
+    height: 15px;
+    width: 15px;
+    background: url('./img/map-marker.png') no-repeat center;
+    background-size: contain;
+}
+
+.opinion__adress {
+    font-size: 12px;
+}
+
+.opinion__header .btn-exit {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    margin-left: auto;
+}
+
+.btn-exit:after,
+.btn-exit:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 15px;
+    height: 3px;
+    border-radius: 5px;
+    background-color: #fff;
+    transform-origin: center;
+}
+
+.btn-exit:after {
+    transform: translate(-50%,-50%) rotate(45deg);
+}
+
+.btn-exit:before {
+    transform: translate(-50%,-50%) rotate(-45deg);
+}
+
+.opinion__body {
+    padding: 10px;
+}
+
+.opinion__comment-outer {
+    height: 100px;
+    border-bottom: 1px solid lightgrey;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.opinion__title {
+    text-transform: uppercase;
+    color: #ff8663;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+input,
+textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    padding: 10px;
+    border: 1px solid lightgray;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+}
+
+.btn__wrap {
+    text-align: right;
+}
+
+.btn-add {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff8663; 
+    border-radius: 10px;
+    color: #fff;
+}
