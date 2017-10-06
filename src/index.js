@@ -61,7 +61,7 @@ new Promise(resolve => ymaps.ready(resolve))
 
                 return false;
             }
-            
+
             let coords = e.get('coords');
             let addres = getAddres(coords);
 
@@ -84,7 +84,7 @@ new Promise(resolve => ymaps.ready(resolve))
                         opinion.style.top = mouseOffsetTop + 'px';
                         opinion.querySelector('.opinion__adress').innerText = pointName;
 
-                        document.addEventListener('click', function(e) {
+                        opinion.addEventListener('click', function(e) {
                             if (e.target.classList.contains('btn-add')) {
                                 let commentInput = e.target.parentElement.previousElementSibling.children[0];
                                 let placeInput = commentInput.parentElement.previousElementSibling.children[0];
