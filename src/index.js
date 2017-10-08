@@ -28,9 +28,39 @@ function getAddres(coords) {
 
 let myMap;
 let clusterer;
-let points = [];
+let points = [
+    {
+        coords: [],
+        comments: [
+            {
+                name: '',
+                place: '',
+                comment: ''
+            },
+            {
+                name: '',
+                place: '',
+                comment: ''
+            },
+        ]
+    },
+    {
+        coords: [],
+        comments: [
+            {
+                name: '',
+                place: '',
+                comment: ''
+            },
+            {
+                name: '',
+                place: '',
+                comment: ''
+            },
+        ]
+    }
+];
 // let geoObjects = [];
-
 
 new Promise(resolve => ymaps.ready(resolve))
     .then(() => mapInit())
@@ -38,12 +68,12 @@ new Promise(resolve => ymaps.ready(resolve))
     .then(() => {
         myMap.events.add('click', function (e) {
 
-            let coords = e.get('coords');
-            let addres = getAddres(coords);
+            var coords = e.get('coords');
+            var addres = getAddres(coords);
 
             addres
                 .then(pointName => {
-                    let template = '<div class="opinion popover">' +
+                    var template = '<div class="opinion popover">' +
                                         '<div class="opinion__header">' +
                                             '<div class="opinion__marker"></div>' +
                                             '<div class="opinion__adress">' + pointName + '</div>' +
@@ -104,7 +134,7 @@ new Promise(resolve => ymaps.ready(resolve))
                                     baloonTemplate = contOpinion.outerHTML;
 
                                     var myPlacemark = new ymaps.Placemark(coords, {
-                                        balloonContent: '<div>привет' + obj.name + '</div>'
+                                        balloonContent: baloonTemplate
                                     }, {
                                         balloonShadow: false,
                                         // balloonContentLayout: BalloonLayout,
