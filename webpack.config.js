@@ -1,39 +1,62 @@
-let webpack = require('webpack');
-let HtmlPlugin = require('html-webpack-plugin');
-let CleanWebpackPlugin = require('clean-webpack-plugin');
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
-let loaders = require('./webpack.config.loaders')();
-let path = require('path');
+const path = require('path');
+const webpack = require('webpack');
+const HTML = require('html-webpack-plugin');
+const merge = require('webpack-merge');
+const pug = require('./modules/pug');
+const devserver = require('./modules/devserver');
+// const sass = require('./modules/sass');
+const css = require('./modules/css');
+const extractCSS = require('./modules/css.extract');
+const uglifyJS = require('./modules/js.uglify');
+const images = require('./modules/images');
 
 const PATHS = {
-    source: path.join(__dirname, 'src'),
-    build: path.join(__dirname, 'dist')
+    src: path.join(__dirname, 'src'),
+    build: path.join(__dirname, 'build')
 };
 
-loaders.push({
-    test: /\.css$/,
-    loader: ExtractTextPlugin.extract({
-        fallbackLoader: 'style-loader',
-        loader: 'css-loader'
-    })
-});
+const common = merge(
+    {
+        entry: {
+            'index': PATHS.src + '/index.js'
+        },
+        output: {
+          path: PATHS.build,
+          filename: 'js/[name].js'
+        },
+        plugins: [
+            new HTML({
+                filename: 'index.html',
+                chunks: ['index', 'common'],
+                template: PATHS.src + '/index.pug'
+            }),
+            new webpack.optimize.CommonsChunkPlugin({
+                name: 'common'
+            })
+        ]
+    },
+    pug(),
+    images()
+);
 
-module.exports = {
-    entry: PATHS.source + '/index.js',
-    output: {
-        filename: '[name].js',
-        path: PATHS.build
-    },
-    devtool: 'source-map',
-    module: {
-        loaders
-    },
-    plugins: [
-        new ExtractTextPlugin('styles.css'),
-        new HtmlPlugin({
-            title: 'Loft School sample project',
-            template: PATHS.source + '/index.hbs'
-        }),
-        new CleanWebpackPlugin(['dist'])
-    ]
+module.exports = (env) => {
+    if (env === 'production') {
+        return merge(
+            [
+                common,
+                extractCSS(),
+                uglifyJS()
+            ]
+        );
+    }
+    if (env === 'development') {
+        return merge(
+            [
+                common,
+                devserver(),
+                // sass(),
+                css()
+            ]
+        );
+    }
 };

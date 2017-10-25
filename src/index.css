@@ -7,6 +7,7 @@ html {
 
 html {
     font-size: 16px;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 *, *:after, *:before {
@@ -18,9 +19,10 @@ html {
     height: 100%;
 }
 
-#map .ymaps-2-1-55-balloon__content {
-    min-width: 310px;
-    min-height: 470px;
+.review-item__date {
+    font-size: 10px;
+    text-align: right;
+    color: blue;
 }
 
 .opinion {
@@ -35,22 +37,40 @@ html {
 .opinion__header {
     display: flex;
     align-items: center;
-    height: 45px;
-    padding: 10px;
+    height: 50px;
+    padding: 0 10px;
     background-color: #ff8663;
     color: #fff;
 }
 
 .opinion__marker {
     height: 15px;
-    width: 15px;
+    min-width: 15px;
     margin-right: 10px;
     background: url('./img/map-marker.png') no-repeat center;
     background-size: contain;
 }
 
 .opinion__adress {
+    font-size: 14px;
+    font-weight: 300;
+    padding-right: 10px;
+}
+
+.review-item__place {
     font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.review-item__name {
+    text-transform: uppercase;
+    font-size: 14px;
+}
+.review-item__message {
+    font-size: 14px;
+    font-weight: 300;
+    padding-left: 10px;
+    color: olive;
 }
 
 .opinion__header .btn-exit {
@@ -88,9 +108,19 @@ html {
 
 .opinion__comment-outer {
     height: 100px;
+    max-width: 100%;
     border-bottom: 1px solid lightgrey;
-    overflow-y: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
     margin-bottom: 10px;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.comment {
+    word-wrap: break-word;
 }
 
 .opinion__title {
